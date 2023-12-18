@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGV Browser</title>
+    <script src="https://cdn.jsdelivr.net/npm/igv@2.15.5/dist/igv.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Container div for the IGV browser -->
+    <div id="igv-div"></div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the container div
+            var igvDiv = document.getElementById("igv-div");
+
+            // Options for the IGV browser (passed from Django view)
+            var options = {{ igv_options|safe }};
+
+            // Create the IGV browser
+            igv.createBrowser(igvDiv, options)
+                .then(function (browser) {
+                    console.log("Created IGV browser");
+                    // Additional actions or configurations can be added here
+                })
+                .catch(function (error) {
+                    console.error("Error creating IGV browser:", error);
+                });
+        });
+    </script>
+
+</body>
+
+</html>
